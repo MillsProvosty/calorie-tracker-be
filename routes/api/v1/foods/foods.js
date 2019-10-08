@@ -15,20 +15,17 @@ router.get('/', function(req, res, next) {
   .catch(error => res.status(500).send({ error }))
 })
 
-
 /* Returns food accorting to ID*/
 router.get('/:id', function(req, res, next) {
-  Food.findOne({
-    where: {
-      id: req.params.id
+  Food.findOne({ where: { id: req.params.id } })
+  .then(food => {
+    if (food) {
+      res.status(200).send(((({ id,name,calories }) => ({ id,name,calories }))(food)))
+    } else {
+      res.status(404).send()
     }
   })
-    .then(food => {
-      let payload = ((({ id,name,calories }) => ({ id,name,calories }))(food))
-      res.status(200).send(food))
-    .catch(error => res.status(404).send({ error }))
-  });
-});
+  .catch(error => res.status(500).send({ error }))
+})
 
 module.exports = router
-
