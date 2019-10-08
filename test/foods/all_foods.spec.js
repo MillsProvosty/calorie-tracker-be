@@ -31,6 +31,9 @@ describe('api', () => {
         expect(Object.keys(response.body[0])).toContain('createdAt')
         expect(Object.keys(response.body[0])).toContain('updatedAt')
       })
+      .catch(error => {
+        expect(error == false)
+      })
     })
 
     test('should return a 500 error', async () => {
@@ -42,6 +45,9 @@ describe('api', () => {
       .then(response => {
         expect(response.status).toBe(500)
         expect(Object.keys(response.body).length).toBe(1)
+      })
+      .catch(error => {
+        expect(error == false)
       })
     })
 

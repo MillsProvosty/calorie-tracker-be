@@ -12,6 +12,9 @@ describe('api', () => {
       .then(response => {
         expect(response.status).toBe(200)
       })
+      .catch(error => {
+        expect(error == false)
+      })
     })
 
   })
