@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production --colors",
+    "build": "NODE_ENV=production",
     "start": "node ./bin/www",
     "test": "jest --config ./jest.config.js --forceExit --coverage --detectOpenHandles"
   },
