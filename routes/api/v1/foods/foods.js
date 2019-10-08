@@ -12,16 +12,14 @@ router.get('/', function(req, res, next) {
 
 /* Returns food accorting to ID*/
 router.get('/:id', function(req, res, next) {
-  Food.findAll({
+  Food.findOne({
     where: {
       id: req.params.id
     }
   })
     .then(food => {
-      let payload = []
-      for (i = 0; i < foods.length; i++){
-        payload.push((({ id,name,calories }) => ({ id,name,calories }))(foods[i]))
-      }res.status(200).send(food))
+      let payload = ((({ id,name,calories }) => ({ id,name,calories }))(food))
+      res.status(200).send(food))
     .catch(error => res.status(404).send({ error }))
   });
 });
