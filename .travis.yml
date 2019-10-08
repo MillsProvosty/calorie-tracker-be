@@ -1,3 +1,8 @@
+language: node_js
+node_js:
+- lts/*
+- node
+script: npm run build
 deploy:
   provider: heroku
   api_key:
