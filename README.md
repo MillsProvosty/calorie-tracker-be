@@ -3,7 +3,11 @@
 
 A README contains sections such as Introduction, Initial Setup, How to Use, Known Issues, Running Tests, How to Contribute, Core Contributors, Schema Design, and Tech Stack List.
 
+Front End :
 Heroku Link : https://calorie-tracker-js.herokuapp.com/
+Backend: 
+Heroku Link : https://calorie-tracker-be.herokuapp.com/
+
 
 [![Dependabot badge](https://flat.badgen.net/dependabot/wbkd/webpack-starter?icon=dependabot)](https://dependabot.com/)
 
