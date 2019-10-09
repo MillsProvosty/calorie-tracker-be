@@ -9,4 +9,5 @@ deploy:
   app: calorie-tracker-be
   on:
     repo: MillsProvosty/calorie-tracker-be
-set -e
+service:
+  - postgresql
