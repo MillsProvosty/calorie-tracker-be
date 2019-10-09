@@ -27,9 +27,15 @@ router.post('/', function(req, res, next) {
 
 /* Updates existing food */
 router.patch('/:id', function(req, res, next) {
-  Food.update( { where: {id: req.params.id, req.body.food })
-  .then( food => res.status(200).send((({ id,name,calories }) => ({ id,name,calories }))(food)) )
+  Food.update( req.body.food, { where: {id: req.params.id},
+                                returning: true,
+                                plain: true
+                              })
+  .then( food => {
+    res.status(200).send((({ id,name,calories }) => ({ id,name,calories }))(food[1].dataValues))
+  })
   .catch( error => res.status(500).send({error}))
-})
+});
+
 
 module.exports = router;

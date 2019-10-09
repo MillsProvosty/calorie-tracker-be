@@ -44,6 +44,17 @@ describe('api', () => {
       })
     })
 
+    test('should return 400 for bad id', () => {
+      var service = { "food":
+                      { "name": "Cherry",
+                      "calories": "25"}
+                    };
+      return request(app).get('/api/v1/foods/145').send(service)
+      .then(response => {
+        expect(response.status).toBe(400)
+      })
+    })
+
     test('should return a 500 error', () => {
       shell.exec('npx sequelize db:migrate:undo:all --env test');
       var service = { "food":
