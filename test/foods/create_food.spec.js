@@ -43,6 +43,24 @@ describe('api', () => {
       })
     })
 
+    test('food must be unique', async () => {
+      var service = { "food":
+                      { "name": "Banana",
+                      "calories": "25"}
+                    }
+
+      return request(app).post('/api/v1/foods').send(service)
+      .then(response => {
+        expect(response.status).toBe(400)
+      })
+
+      return request(app).get('/api/v1/foods').send()
+      .then(response => {
+        expect(response.status).toBe(200)
+        expect(response.body.length).toBe(10)
+      })
+    })
+
     test('should return a 500 error', () => {
       shell.exec('npx sequelize db:migrate:undo:all --env test')
 
