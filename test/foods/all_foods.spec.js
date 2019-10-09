@@ -4,11 +4,11 @@ const app = require('../../app')
 
 describe('api', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:migrate --env test')
-    shell.exec('npx sequelize db:seed:all --env test')
+    shell.exec('npx sequelize db:migrate')
+    shell.exec('npx sequelize db:seed:all')
   })
   afterAll(() => {
-    shell.exec('npx sequelize db:migrate:undo:all --env test')
+    shell.exec('npx sequelize db:migrate:undo:all')
   })
 
   describe('Test GET /api/v1/foods path', () => {
