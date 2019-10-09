@@ -28,7 +28,7 @@ describe('api', () => {
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body.length).toBe(10)
+        expect(response.body.length).toBe(9)
       })
     })
 
