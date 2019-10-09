@@ -35,4 +35,24 @@ router.patch('/:id', function(req, res, next) {
   .catch( error => res.status(400).send({error}))
 });
 
+/* Deletes existing food */
+router.delete('/:id', function(req, res, next) {
+  Food.destroy({ where: {id: req.params.id} })
+  .then(() => res.status(204).send())
+  .catch( error => res.status(404).send({error}))
+});
+
+
+// router.delete('/todos/:id', function(req, res) {
+//   var id = req.params.id;
+//
+//   Todo.remove({'_id': id}, function(err, todo) {
+//     if (err) {
+//       return res.status(500).json({err: err.message});
+//     } else {
+//       res.send('Todo was deleted');
+//     }
+//   });
+// });
+
 module.exports = router;

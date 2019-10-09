@@ -17,13 +17,10 @@ describe('api', () => {
 
     test('should update an existing food', async () => {
       return request(app).delete('/api/v1/foods/1').send()
-      .then(response => {
-        expect(response.status).toBe(204)
-        expect(response.body).toEqual(body)
-      })
+      .then(response => expect(response.status).toBe(204))
 
       return request(app).get('/api/v1/foods/1').send()
-      .then(response => expect(response.status).toBe(404))
+      .then(response => expect(response.status).toBe(400))
 
       return request(app).get('/api/v1/foods').send()
       .then(response => {
@@ -32,10 +29,10 @@ describe('api', () => {
       })
     })
 
-    test('should return a 500 error', () => {
+    test('should return a 404 error', () => {
       shell.exec('npx sequelize db:migrate:undo:all --env test');
-      return request(app).patch('/api/v1/foods/1').send()
-      .then(response => expect(response.status).toBe(500))
+      return request(app).delete('/api/v1/foods/1').send()
+      .then(response => expect(response.status).toBe(404))
     })
 
   })
