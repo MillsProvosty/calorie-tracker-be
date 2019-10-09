@@ -25,11 +25,11 @@ describe('api', () => {
       .then(response => {
         expect(response.status).toBe(200)
 
-        body = { "id": 10,
+        body = { "id": 11,
                  "name": "Cherry",
                  "calories": 25 }
 
-        expect(response.body).toEql(body)
+        expect(response.body).toEqual(body)
       })
 
       return request(app).get('/api/v1/foods').send()
@@ -49,7 +49,6 @@ describe('api', () => {
       return request(app).post('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(500)
-        expect(Object.keys(response.body).length).toBe(1)
       })
     })
 

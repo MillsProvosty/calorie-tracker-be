@@ -28,5 +28,18 @@ router.get('/:id', function(req, res, next) {
   .catch(error => res.status(500).send({ error }))
 })
 
+/* Creates a new food object*/
+router.post('/', function(req, res, next) {
+  Food.findOne({ where: { name: req.body.food.name } })
+  .then(food => {
+    if (food) {
+      res.status(400).send()
+    } else {
+      return Food.create({ name: req.body.food.name, calories: req.body.food.calories })
+    }
+  })
+  .then(food => res.status(200).send(((({ id,name,calories }) => ({ id,name,calories }))(food))))
+  .catch(error => res.status(500).send({ error }))
+})
 
 module.exports = router
