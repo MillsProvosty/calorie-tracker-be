@@ -25,4 +25,11 @@ router.post('/', function(req, res, next) {
   .catch( error => res.status(500).send({error}) )
 })
 
+/* Updates existing food */
+router.patch('/:id', function(req, res, next) {
+  Food.update( { where: {id: req.params.id, req.body.food })
+  .then( food => res.status(200).send((({ id,name,calories }) => ({ id,name,calories }))(food)) )
+  .catch( error => res.status(500).send({error}))
+})
+
 module.exports = router;
