@@ -27,6 +27,13 @@ describe('api', () => {
       })
     })
 
+    test('should return 404 for bad id', () => {
+      return request(app).get('/api/v1/foods/20').send()
+      .then(response => {
+        expect(response.status).toBe(404)
+      })
+    })
+
     test('should return a 500 error', () => {
       shell.exec('npx sequelize db:migrate:undo:all --env test')
 
