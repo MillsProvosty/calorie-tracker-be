@@ -49,7 +49,7 @@ describe('api', () => {
                       { "name": "Cherry",
                       "calories": "25"}
                     };
-      return request(app).get('/api/v1/foods/145').send(service)
+      return request(app).patch('/api/v1/foods/145').send(service)
       .then(response => {
         expect(response.status).toBe(400)
       })

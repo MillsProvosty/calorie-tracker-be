@@ -32,7 +32,11 @@ router.patch('/:id', function(req, res, next) {
                                 plain: true
                               })
   .then( food => {
-    res.status(200).send((({ id,name,calories }) => ({ id,name,calories }))(food[1].dataValues))
+    if (food) {
+      res.status(200).send((({ id,name,calories }) => ({ id,name,calories }))(food[1].dataValues))
+    } else {
+      res.status(400).send()
+    }
   })
   .catch( error => res.status(500).send({error}))
 });
