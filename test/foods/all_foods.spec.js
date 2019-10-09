@@ -4,12 +4,12 @@ const app = require('../../app');
 
 describe('api', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:create')
-    shell.exec('npx sequelize db:migrate')
-    shell.exec('npx sequelize db:seed:all')
+    shell.exec('npx sequelize db:create');
+    shell.exec('npx sequelize db:migrate');
+    shell.exec('npx sequelize db:seed:all');
   })
   afterAll(async () => {
-    shell.exec('npx sequelize db:migrate:undo:all')
+    shell.exec('npx sequelize db:migrate:undo:all');
     await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
@@ -30,7 +30,7 @@ describe('api', () => {
     })
 
     test('should return a 500 error', () => {
-      shell.exec('npx sequelize db:migrate:undo:all --env test')
+      shell.exec('npx sequelize db:migrate:undo:all --env test');
 
       return request(app).get('/api/v1/foods').send()
       .then(response => {

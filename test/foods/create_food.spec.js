@@ -62,7 +62,7 @@ describe('api', () => {
     })
 
     test('should return a 500 error', () => {
-      shell.exec('npx sequelize db:migrate:undo:all --env test')
+      shell.exec('npx sequelize db:migrate:undo:all --env test');
 
       return request(app).post('/api/v1/foods').send()
       .then(response => {
