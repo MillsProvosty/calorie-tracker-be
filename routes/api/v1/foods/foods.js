@@ -25,10 +25,10 @@ router.get('/:id', function(req, res, next) {
   })
     .then(food => {
       let payload = ((({ id,name,calories }) => ({ id,name,calories }))(food))
-      res.status(200).send(food))
+      res.status(200).send(payload)
+    })
     .catch(error => res.status(404).send({ error }))
-  });
 });
 
-module.exports = router
 
+module.exports = router
