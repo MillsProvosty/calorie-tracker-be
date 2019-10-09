@@ -1,6 +1,6 @@
-const shell = require('shelljs')
-const request = require("supertest")
-const app = require('../../app')
+const shell = require('shelljs');
+const request = require("supertest");
+const app = require('../../app');
 
 describe('api', () => {
   beforeAll(() => {

@@ -1,15 +1,15 @@
-const shell = require('shelljs')
-const request = require("supertest")
-const app = require('../../app')
+const shell = require('shelljs');
+const request = require("supertest");
+const app = require('../../app');
 
 describe('api', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:create')
-    shell.exec('npx sequelize db:migrate')
-    shell.exec('npx sequelize db:seed:all')
+    shell.exec('npx sequelize db:create');
+    shell.exec('npx sequelize db:migrate');
+    shell.exec('npx sequelize db:seed:all');
   })
   afterAll(async () => {
-    shell.exec('npx sequelize db:migrate:undo:all')
+    shell.exec('npx sequelize db:migrate:undo:all');
     await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
@@ -19,15 +19,15 @@ describe('api', () => {
       var service = { "food":
                       { "name": "Cherry",
                       "calories": "25"}
-                    }
+                    };
 
       return request(app).post('/api/v1/foods').send(service)
       .then(response => {
         expect(response.status).toBe(200)
 
-        body = { "id": 11,
+        let body = { "id": 11,
                  "name": "Cherry",
-                 "calories": 25 }
+                 "calories": 25 };
 
         expect(response.body).toEqual(body)
       })
