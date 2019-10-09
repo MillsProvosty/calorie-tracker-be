@@ -8,8 +8,9 @@ describe('api', () => {
     shell.exec('npx sequelize db:migrate')
     shell.exec('npx sequelize db:seed:all')
   })
-  afterAll(() => {
+  afterAll(async () => {
     shell.exec('npx sequelize db:migrate:undo:all')
+    await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
   describe('Test GET /api/v1/foods/:id path', () => {
@@ -24,6 +25,13 @@ describe('api', () => {
         expect(Object.keys(response.body)).toContain('calories')
         expect(Object.keys(response.body)).not.toContain('createdAt')
         expect(Object.keys(response.body)).not.toContain('updatedAt')
+      })
+    })
+
+    test('should return 404 for bad id', () => {
+      return request(app).get('/api/v1/foods/20').send()
+      .then(response => {
+        expect(response.status).toBe(404)
       })
     })
 

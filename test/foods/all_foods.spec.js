@@ -8,8 +8,9 @@ describe('api', () => {
     shell.exec('npx sequelize db:migrate')
     shell.exec('npx sequelize db:seed:all')
   })
-  afterAll(() => {
+  afterAll(async () => {
     shell.exec('npx sequelize db:migrate:undo:all')
+    await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
   describe('Test GET /api/v1/foods path', () => {
