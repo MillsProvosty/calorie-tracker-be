@@ -37,8 +37,9 @@ router.patch('/:id', function(req, res, next) {
 
 /* Deletes existing food */
 router.delete('/:id', function(req, res, next) {
-  Food.destroy( req.body.food, { where: {id: req.params.id}
-  })
+  Food.destroy({ where: {id: req.params.id} })
+  .then(() => res.status(204).send())
+  .catch( error => res.status(404).send({error}))
 });
 
 
