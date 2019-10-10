@@ -29,6 +29,9 @@
     "node": "10.x"
   },
   "jest": {
+    "maxConcurrency": 1,
+    "globalSetup": "./tests/helper/testGlobalSetup.js",
+    "globalTeardown": "./tests/helper/testGlobalTeardown.js",
     "forceCoverageMatch": [
       "**/*.test.js"
     ]

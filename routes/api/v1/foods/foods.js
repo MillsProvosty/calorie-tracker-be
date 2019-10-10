@@ -36,16 +36,16 @@ router.patch('/:id', function(req, res, next) {
 });
 
 /* Deletes existing food */
-router.delete('/:id', async function(req, res, next) {
-  let problems = await FoodMeal.findAll({where: {FoodId: req.params.id},
-                                         attributes: ['id']})
+router.delete('/:id', function(req, res, next) {
+  FoodMeal.findAll({where: {FoodId: req.params.id}, attributes: ['id']})
   .then( foodMeals => {
     if (foodMeals.length) {
-      FoodMeal.destroy({ where: {id: foodMeals.map(it => it.id)} })
+      res.status(400).send(JSON.stringify('Cannot delete: food exists in meals'))
+    } else {
+      Food.destroy({ where: {id: req.params.id} })
+      .then( () => res.status(204).send())
     }
   })
-  .then( () => Food.destroy({ where: {id: req.params.id} }))
-  .then( () => res.status(204).send())
   .catch( error => res.status(404).send({error}))
 });
 

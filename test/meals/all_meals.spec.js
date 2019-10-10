@@ -1,17 +1,16 @@
 const shell = require('shelljs');
 const request = require("supertest");
 const app = require('../../app');
+const Meal = require('../../models').Meal;
 
 describe('api', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop --env test')
-    shell.exec('npx sequelize db:create --env test');
-    shell.exec('npx sequelize db:migrate --env test');
-    shell.exec('npx sequelize db:seed:all --env test');
+  beforeAll(async () => {
+    var data = [{name: 'Breakfast'},
+                {name: 'Dessert'}];
+    await Meal.bulkCreate(data, {returning: true})
   })
   afterAll(async () => {
-    shell.exec('npx sequelize db:migrate:undo:all --env test');
-    await new Promise(resolve => setTimeout(() => resolve(), 500))
+    await Meal.destroy({where:{}})
   })
 
   describe('Test GET /api/v1/meals path', () => {
@@ -28,15 +27,6 @@ describe('api', () => {
         expect(Object.keys(response.body[0])).toContain('Food')
         expect(Object.keys(response.body[0])).not.toContain('createdAt')
         expect(Object.keys(response.body[0])).not.toContain('UpdatedAt')
-      })
-    })
-
-    test('should return a 204 error', () => {
-      shell.exec('npx sequelize db:migrate:undo:all --env test');
-      return request(app).get('/api/v1/meals').send()
-      .then(response => {
-        console.log(response.body)
-        expect(response.status).toBe(204)
       })
     })
   })
