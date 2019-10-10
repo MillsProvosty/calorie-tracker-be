@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var Meal = require('../../../models').Meal;
 var Food = require('../../../models').Food;
-var MealFoods = require('../../../models').MealFoods;
+var MealFoods = require('../../../models').MealFoods; 
 
 /* Returns all meals*/
 router.get('/', function(req, res, next) {
