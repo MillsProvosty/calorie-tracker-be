@@ -1,53 +1,48 @@
 const shell = require('shelljs');
 const request = require("supertest");
 const app = require('../../app');
+const Food = require('../../models').Food;
+const Meal = require('../../models').Meal;
+const FoodMeal = require('../../models').FoodMeal;
 
 describe('api', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop --env test')
-    shell.exec('npx sequelize db:create --env test');
-    shell.exec('npx sequelize db:migrate --env test');
-    shell.exec('npx sequelize db:seed:all --env test');
-  })
   afterAll(async () => {
-    shell.exec('npx sequelize db:drop --env test')
-    await new Promise(resolve => setTimeout(() => resolve(), 500))
+    await FoodMeal.destroy({where:{}})
+    await Meal.destroy({where:{}})
+    await Food.destroy({where:{}})
   })
 
   describe('Test DELETE /api/v1/foods/:id path', () => {
 
-    test('should update an existing food', async () => {
-      return request(app).delete('/api/v1/foods/4').send()
+    test('should delete an existing food', async () => {
+      let banana = await Food.create({name: 'Banana', calories: 150})
+
+      return request(app).delete(`/api/v1/foods/${banana.id}`).send()
       .then(response => expect(response.status).toBe(204))
 
-      return request(app).get('/api/v1/foods/4').send()
+      return request(app).get(`/api/v1/foods/${banana.id}`).send()
       .then(response => expect(response.status).toBe(400))
 
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body.length).toBe(9)
+        expect(response.body.length).toBe(0)
       })
     })
 
-    test('should update an existing food even if it is in a meal', async () => {
-      return request(app).delete('/api/v1/foods/1').send()
-      .then(response => expect(response.status).toBe(204))
+    test('should not delete an existing food if it is in a meal', async () => {
+      let banana = await Food.create({name: 'Banana', calories: 150})
+      let meal = await Meal.create({name: 'Breakfast'})
+      await FoodMeal.create({FoodId: banana.id, MealId: meal.id})
 
-      return request(app).get('/api/v1/foods/1').send()
+      return request(app).delete(`/api/v1/foods/${banana.id}`).send()
       .then(response => expect(response.status).toBe(400))
 
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body.length).toBe(8)
+        expect(response.body.length).toBe(1)
       })
-    })
-
-    test('should return a 404 error', () => {
-      shell.exec('npx sequelize db:migrate:undo:all --env test');
-      return request(app).delete('/api/v1/foods/1').send()
-      .then(response => expect(response.status).toBe(404))
     })
 
   })
