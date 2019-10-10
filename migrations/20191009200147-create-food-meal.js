@@ -8,11 +8,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      foodId: {
-        type: Sequelize.INTEGER
+      FoodId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Food',
+          key: 'id'
+        }
       },
-      mealId: {
-        type: Sequelize.INTEGER
+      MealId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Meals',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

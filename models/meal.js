@@ -4,7 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Meal.associate = function(models) {
-    Meal.hasMany(models.FoodMeals, {foreignKey: 'mealId'});
+    Meal.hasMany(models.FoodMeal, {onDelete: 'cascade'});
+    Meal.belongsToMany(models.Food, {
+      through: models.FoodMeal,
+      foreignKey: 'MealId'
+    });
   };
   return Meal;
 };
