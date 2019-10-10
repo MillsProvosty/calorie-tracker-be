@@ -24,6 +24,7 @@ describe('api', () => {
         expect(Object.keys(response.body[0]).length).toBe(3)
         expect(Object.keys(response.body[0])).toContain('id')
         expect(Object.keys(response.body[0])).toContain('name')
+        expect(Object.keys(response.body[0])).toContain('food')
         expect(Object.keys(response.body[0])).not.toContain('createdAt')
         expect(Object.keys(response.body[0])).not.toContain('UpdatedAt')
       })
