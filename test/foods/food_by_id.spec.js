@@ -4,12 +4,13 @@ const app = require('../../app');
 
 describe('api', () => {
   beforeAll(() => {
-    shell.exec('npx sequelize db:create');
-    shell.exec('npx sequelize db:migrate');
-    shell.exec('npx sequelize db:seed:all');
+    shell.exec('npx sequelize db:drop --env test')
+    shell.exec('npx sequelize db:create --env test');
+    shell.exec('npx sequelize db:migrate --env test');
+    shell.exec('npx sequelize db:seed:all --env test');
   })
   afterAll(async () => {
-    shell.exec('npx sequelize db:migrate:undo:all');
+    shell.exec('npx sequelize db:migrate:undo:all --env test');
     await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
