@@ -20,7 +20,6 @@ describe('api', () => {
       .then(response => {
         expect(response.status).toBe(200)
         expect(response.body.length).toBe(2)
-        console.log("this is being returned for all meals:")
         expect(Object.keys(response.body[0]).length).toBe(3)
         expect(Object.keys(response.body[0])).toContain('id')
         expect(Object.keys(response.body[0])).toContain('name')
