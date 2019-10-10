@@ -36,9 +36,8 @@ router.patch('/:id', function(req, res, next) {
 });
 
 /* Deletes existing food */
-router.delete('/:id', async function(req, res, next) {
-  let problems = await FoodMeal.findAll({where: {FoodId: req.params.id},
-                                         attributes: ['id']})
+router.delete('/:id', function(req, res, next) {
+  FoodMeal.findAll({where: {FoodId: req.params.id}, attributes: ['id']})
   .then( foodMeals => {
     if (foodMeals.length) {
       FoodMeal.destroy({ where: {id: foodMeals.map(it => it.id)} })
