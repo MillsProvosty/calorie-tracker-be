@@ -19,8 +19,6 @@ describe('api', () => {
     test('should return 1 meal and all the associated foods from seeds', () => {
       return request(app).get('/api/v1/meals/1/foods').send()
       .then(response => {
-        console.log("This is the response:")
-        console.log(response.body)
         expect(response.status).toBe(200)
         expect(Object.keys(response.body).length).toBe(3)
         expect(Object.keys(response.body)).toContain('id')
