@@ -34,11 +34,15 @@ router.post('/', function(req, res, next) {
 /* Updates existing food */
 router.patch('/:id', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json')
-  Food.update( req.body.food, { where: {id: req.params.id},
-                                returning: true,
-                                plain: true} )
-  .then( food => res.status(200).send(JSON.stringify(food[1].dataValues, ['id', 'name', 'calories'])) )
-  .catch( error => res.status(400).send({error}) )
+  if (req.body.food.name == '' || req.body.food.calories == '') {
+    res.status(400).send(JSON.stringify('Name and calories cannot be blank.'))
+  } else {
+    Food.update( req.body.food, { where: {id: req.params.id},
+      returning: true,
+      plain: true} )
+      .then( food => res.status(200).send(JSON.stringify(food[1].dataValues, ['id', 'name', 'calories'])) )
+      .catch( error => res.status(400).send({error}) )
+  }
 });
 
 /* Deletes existing food */
