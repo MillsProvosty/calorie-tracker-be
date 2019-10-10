@@ -2,15 +2,9 @@ const shell = require('shelljs');
 const request = require("supertest");
 const app = require('../../app');
 const Food = require('../../models').Food;
-const Meal = require('../../models').Meal;
-const FoodMeal = require('../../models').FoodMeal;
 
 describe('api', () => {
-  beforeAll(async () => {
-
-  })
   afterAll(async () => {
-    await FoodMeal.destroy({where:{}})
     await Food.destroy({where:{}})
   })
 
