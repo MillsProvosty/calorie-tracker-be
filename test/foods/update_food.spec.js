@@ -1,36 +1,28 @@
 const shell = require('shelljs');
 const request = require("supertest");
 const app = require('../../app');
+const Food = require('../../models').Food;
 
 describe('api', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop --env test')
-    shell.exec('npx sequelize db:create --env test');
-    shell.exec('npx sequelize db:migrate --env test');
-    shell.exec('npx sequelize db:seed:all --env test');
-  })
   afterAll(async () => {
-    shell.exec('npx sequelize db:migrate:undo:all --env test');
-    await new Promise(resolve => setTimeout(() => resolve(), 500))
+    await Food.destroy({where:{}})
   })
 
   describe('Test PATCH /api/v1/foods/:id path', () => {
 
     test('should update an existing food', async () => {
-      var service = { "food":
-                      { "name": "Cherry",
-                      "calories": "25"}
-                    };
+      let banana = await Food.create({name: 'Banana', calories: 150})
+      var service = { "food": {"name": "Cherry", "calories": "25"} };
 
-      return request(app).patch('/api/v1/foods/1').send(service)
+      return request(app).patch(`/api/v1/foods/${banana.id}`).send(service)
       .then(response => {
         expect(response.status).toBe(200)
-
-        let body = { "id": 1,
-                 "name": "Cherry",
-                 "calories": 25 };
-
-        expect(response.body).toEqual(body)
+        expect(Object.keys(response.body).length).toBe(3)
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(response.body.name).toEqual('Cherry')
+        expect(Object.keys(response.body)).toContain('calories')
+        expect(response.body.calories).toEqual(25)
       })
 
       return request(app).get('/api/v1/foods/1').send()
@@ -54,15 +46,5 @@ describe('api', () => {
       .then(response => expect(response.status).toBe(400))
     })
 
-    test('should return a 400 error', () => {
-      shell.exec('npx sequelize db:migrate:undo:all --env test');
-      var service = { "food":
-                      { "name": "Cherry",
-                      "calories": "25"}
-                    };
-
-      return request(app).patch('/api/v1/foods/1').send(service)
-      .then(response => expect(response.status).toBe(400))
-    })
   })
 })
