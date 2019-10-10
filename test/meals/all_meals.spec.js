@@ -28,5 +28,14 @@ describe('api', () => {
       })
     })
 
+    test('should return a 204 error', () => {
+      shell.exec('npx sequelize db:migrate:undo:all --env test');
+
+      return request(app).get('/api/v1/meals').send()
+      .then(response => {
+        console.log(response.body)
+        expect(response.status).toBe(204)
+      })
+    })
   })
 })
