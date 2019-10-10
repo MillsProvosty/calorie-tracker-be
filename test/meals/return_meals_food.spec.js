@@ -14,16 +14,18 @@ describe('api', () => {
     await new Promise(resolve => setTimeout(() => resolve(), 500))
   })
 
-  describe('Test GET /api/v1/foods/:id path', () => {
+  describe('Test GET /api/v1/meals/:id/foods path', () => {
 
     test('should return 1 meal and all the associated foods from seeds', () => {
       return request(app).get('/api/v1/meals/1/foods').send()
       .then(response => {
+        console.log("This is the response:")
+        console.log(response.body)
         expect(response.status).toBe(200)
-        expect(Object.keys(response.body).length).toBe(2)
+        expect(Object.keys(response.body).length).toBe(3)
         expect(Object.keys(response.body)).toContain('id')
         expect(Object.keys(response.body)).toContain('name')
-        expect(Object.keys(response.body)).toContain('foods')
+        expect(Object.keys(response.body)).toContain('Food')
         expect(Object.keys(response.body)).not.toContain('createdAt')
         expect(Object.keys(response.body)).not.toContain('updatedAt')
       })
@@ -40,13 +42,12 @@ describe('api', () => {
       shell.exec('npx sequelize db:migrate:undo:all --env test');
 
       return request(app)
-      .get('/api/v1/foods/1')
+      .get('/api/v1/meals/1/foods')
       .send()
       .then(response => {
         expect(response.status).toBe(500)
         expect(Object.keys(response.body).length).toBe(1)
       })
     })
-
   })
 })
