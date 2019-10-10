@@ -21,10 +21,14 @@ router.post('/', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json')
   var name = req.body.food.name
   var cals = req.body.food.calories
-  Food.findOne( { where: { name: name } } )
-  .then( food => (food) ? res.status(400).send() : Food.create( { name: name, calories: cals } ) )
-  .then( food => res.status(200).send(JSON.stringify(food, ['id', 'name', 'calories'])) )
-  .catch( error => res.status(500).send({error}) )
+  if (name == '' || cals == '') {
+    res.status(400).send(JSON.stringify('Name and calories cannot be blank.'))
+  } else {
+    Food.findOne( { where: { name: name } } )
+    .then( food => (food) ? res.status(400).send() : Food.create( { name: name, calories: cals } ) )
+    .then( food => res.status(200).send(JSON.stringify(food, ['id', 'name', 'calories'])) )
+    .catch( error => res.status(500).send({error}) )
+  }
 })
 
 /* Updates existing food */

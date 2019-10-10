@@ -53,5 +53,15 @@ describe('api', () => {
       })
     })
 
+    test('fields cannot be blank', async () => {
+      var service = { "food": {"name": "", "calories": "25"} }
+
+      return request(app).post('/api/v1/foods').send(service)
+      .then(response => {
+        expect(response.status).toBe(400)
+        expect(response.body).toBe("Name and calories cannot be blank.")
+      })
+    })
+
   })
 })
