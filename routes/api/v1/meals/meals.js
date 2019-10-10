@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
   .catch( error => res.status(204).send({error}) )
 })
 
-
 /*Returns all food for given meal */
 router.get('/:id/foods', function(req, res, next){
   res.setHeader("Content-Type", "application/json")
