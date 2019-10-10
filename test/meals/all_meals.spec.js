@@ -34,7 +34,6 @@ describe('api', () => {
 
       return request(app).get('/api/v1/meals').send()
       .then(response => {
-        console.log(response.body)
         expect(response.status).toBe(500)
         expect(Object.keys(response.body).length).toBe(1)
       })
