@@ -10,11 +10,8 @@ describe('api', () => {
 
   describe('Test POST /api/v1/foods path', () => {
 
-    test('should create a new food', async () => {
-      var service = { "food":
-                      { "name": "Cherry",
-                      "calories": "25"}
-                    };
+    test('should create a new food', () => {
+      var service = { "food": { "name": "Cherry", "calories": "25"} };
 
       return request(app).post('/api/v1/foods').send(service)
       .then(response => {
@@ -25,16 +22,18 @@ describe('api', () => {
         expect(response.body.name).toEqual('Cherry')
         expect(Object.keys(response.body)).toContain('calories')
         expect(response.body.calories).toEqual(25)
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
       })
 
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body.length).toBe(11)
-        expect(Object.keys(response.body[10]).length).toBe(3)
-        expect(Object.keys(response.body[10])).toContain('id')
-        expect(Object.keys(response.body[10])).toContain('name')
-        expect(Object.keys(response.body[10])).toContain('calories')
+        expect(response.body.length).toBe(1)
+        expect(Object.keys(response.body[0]).length).toBe(3)
+        expect(Object.keys(response.body[0])).toContain('id')
+        expect(Object.keys(response.body[0])).toContain('name')
+        expect(Object.keys(response.body[0])).toContain('calories')
       })
     })
 
