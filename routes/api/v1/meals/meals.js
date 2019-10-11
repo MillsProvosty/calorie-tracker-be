@@ -26,7 +26,7 @@ router.post('/:mealId/foods/:id', async function(req, res, next){
 
   if (meal && food) {
     let foodMeal = await FoodMeal.findOne( { where: {MealId: meal.id, FoodId: food.id} } )
-    
+
     if (foodMeal) {
       res.status(400).send(JSON.stringify('Food already in meal.'))
     } else {

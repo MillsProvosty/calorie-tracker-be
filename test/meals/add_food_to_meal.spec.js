@@ -15,7 +15,7 @@ describe('api', () => {
   describe('Test POST /api/v1/meals/:mealId/foods/:id path', () => {
     test('should add the food to the meal', async () => {
       let banana = await Food.create({name: 'Banana', calories: 150})
-      let breakfast = await Meal.create({name: 'Breakfast'})
+      breakfast = await Meal.create({name: 'Breakfast'})
 
       return request(app).post(`/api/v1/meals/${breakfast.id}/foods/${banana.id}`).send()
       .then(response => {
@@ -24,9 +24,22 @@ describe('api', () => {
       })
     })
 
+    test('banana should be in breakfast', async () => {
+      return request(app).get(`/api/v1/meals/${breakfast.id}/foods`).send()
+      .then(response => {
+        expect(response.status).toBe(200)
+        expect(Object.keys(response.body).length).toBe(3)
+        expect(Object.keys(response.body)).toContain('id')
+        expect(Object.keys(response.body)).toContain('name')
+        expect(Object.keys(response.body)).toContain('Food')
+        expect(response.body.Food[0].name).toBe('Banana')
+        expect(Object.keys(response.body)).not.toContain('createdAt')
+        expect(Object.keys(response.body)).not.toContain('updatedAt')
+      })
+    })
+
     test('should not work if the food is already in the meal', async () => {
       let cherry = await Food.create({name: 'Cherry', calories: 150})
-      let breakfast = await Meal.create({name: 'Breakfast'})
       await FoodMeal.create({FoodId: cherry.id, MealId: breakfast.id})
 
       return request(app).post(`/api/v1/meals/${breakfast.id}/foods/${cherry.id}`).send()
