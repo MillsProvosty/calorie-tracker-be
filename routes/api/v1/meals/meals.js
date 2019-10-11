@@ -39,4 +39,18 @@ router.post('/:mealId/foods/:id', async function(req, res, next){
   }
 })
 
+/* Deletes food from a meal */
+router.delete('/:mealId/foods/:id', async function(req, res, next){
+  let food = await Food.findOne( { where: {id: req.params.id} } )
+  let meal = await Meal.findOne( { include: Food, where: {id: req.params.mealId} } )
+
+  if (meal && food){
+    await FoodMeal.destroy({ where: {FoodId: food.id, MealId: meal.id} })
+    res.status(204).send()
+  } else {
+    res.status(404).send()
+  }
+})
+
+
 module.exports = router;
