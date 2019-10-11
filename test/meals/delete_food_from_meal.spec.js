@@ -21,18 +21,6 @@ describe('api', () => {
       .then(response => {
         expect(response.status).toBe(204)
       })
-
-      return request(app).get(`/api/v1/meals/${breakfast.id}/foods`).send()
-      .then(response => {
-        expect(response.status).toBe(200)
-        expect(Object.keys(response.body).length).toBe(3)
-        expect(Object.keys(response.body)).toContain('id')
-        expect(Object.keys(response.body)).toContain('name')
-        expect(Object.keys(response.body)).toContain('Food')
-        expect(response.body.Food.length).toBe(0)
-        expect(Object.keys(response.body)).not.toContain('createdAt')
-        expect(Object.keys(response.body)).not.toContain('updatedAt')
-      })
     })
 
     test('404 if either does not exist', async () => {
