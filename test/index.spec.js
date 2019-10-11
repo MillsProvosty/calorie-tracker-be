@@ -3,8 +3,9 @@ const request = require("supertest")
 const app = require('../app')
 
 describe('api', () => {
-  afterAll(async () => {
-    await new Promise(resolve => setTimeout(() => resolve(), 500))
+  beforeAll(async () => {
+    shell.exec('npx sequelize db:create --env test')
+    shell.exec('npx sequelize db:migrate --env test')
   })
 
   describe('Test GET /', () => {
