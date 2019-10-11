@@ -15,14 +15,18 @@ describe('api', () => {
   describe('Test DELETE /api/v1/foods/:id path', () => {
 
     test('should delete an existing food', async () => {
-      let banana = await Food.create({name: 'Banana', calories: 150})
+      banana = await Food.create({name: 'Banana', calories: 150})
 
       return request(app).delete(`/api/v1/foods/${banana.id}`).send()
       .then(response => expect(response.status).toBe(204))
+    })
 
+    test('it has already been deleted', () => {
       return request(app).get(`/api/v1/foods/${banana.id}`).send()
-      .then(response => expect(response.status).toBe(400))
+      .then(response => expect(response.status).toBe(404))
+    })
 
+    test('it no longer exists', () => {
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
@@ -37,7 +41,9 @@ describe('api', () => {
 
       return request(app).delete(`/api/v1/foods/${banana.id}`).send()
       .then(response => expect(response.status).toBe(400))
+    })
 
+    test('it still exists', () => {
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
