@@ -25,7 +25,9 @@ describe('api', () => {
         expect(Object.keys(response.body)).not.toContain('createdAt')
         expect(Object.keys(response.body)).not.toContain('updatedAt')
       })
+    })
 
+    test('there should now be 1 food', () => {
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
@@ -38,18 +40,19 @@ describe('api', () => {
     })
 
     test('food must be unique', async () => {
-      await Food.create({name: 'Banana', calories: 150})
-      var service = { "food": {"name": "Banana", "calories": "25"} }
+      var service = { "food": {"name": "Cherry", "calories": "25"} }
 
       return request(app).post('/api/v1/foods').send(service)
       .then(response => {
         expect(response.status).toBe(400)
       })
+    })
 
+    test('there should still only 1 be food', () => {
       return request(app).get('/api/v1/foods').send()
       .then(response => {
         expect(response.status).toBe(200)
-        expect(response.body.length).toBe(10)
+        expect(response.body.length).toBe(1)
       })
     })
 
@@ -62,6 +65,5 @@ describe('api', () => {
         expect(response.body).toBe("Name and calories cannot be blank.")
       })
     })
-
   })
 })
