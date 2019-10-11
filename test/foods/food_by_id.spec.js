@@ -9,7 +9,6 @@ describe('api', () => {
   })
 
   describe('Test GET /api/v1/foods/:id path', () => {
-
     test('should return 1 food from seeds', async () => {
       let banana = await Food.create({name: 'Banana', calories: 150})
 
@@ -31,6 +30,5 @@ describe('api', () => {
         expect(response.status).toBe(404)
       })
     })
-
   })
 })
