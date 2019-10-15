@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
 })
 
 /* Updates existing food */
-router.patch('/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json')
   if (req.body.food.name == '' || req.body.food.calories == '') {
     res.status(400).send(JSON.stringify('Name and calories cannot be blank.'))
