@@ -68,6 +68,7 @@ PUT https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:food_i
 DELETE https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:food_id
 ```
 
+
 ### Initial Setup:
 
 * `$ git clone https://github.com/MillsProvosty/calorie-tracker-be`
@@ -86,11 +87,9 @@ DELETE https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:foo
 
 * `$ npm test`
 
-### How to contribute
 
-* Visit https://github.com/MillsProvosty/calorie-tracker-be and click ```New pull request```
 
-A README contains sections such as Introduction, Initial Setup, How to Use, Known Issues, Running Tests, How to Contribute, Core Contributors, Schema Design, and Tech Stack List.
+### Production links:
 
 Front End :
 Heroku Link : https://calorie-tracker-js.herokuapp.com/
@@ -100,33 +99,11 @@ Backend:
 Heroku Link : https://calorie-tracker-be.herokuapp.com/
 
 
-[![Dependabot badge](https://flat.badgen.net/dependabot/wbkd/webpack-starter?icon=dependabot)](https://dependabot.com/)
-
-A lightweight foundation for your next webpack based frontend project.
-
-
-### Installation
-
-```
-npm install
-```
-
-### Start Dev Server
-
-```
-npm start
-```
-
 ### Build Prod Version
 
-```
-npm run build
-```
+* `$ npm run build`
 
-### Features:
 
-* ES6 Support via [babel](https://babeljs.io/) (v7)
-* SASS Support via [sass-loader](https://github.com/jtangelder/sass-loader)
-* Linting via [eslint-loader](https://github.com/MoOx/eslint-loader)
+### How to contribute
 
-When you run `npm run build` we use the [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) to move the css to a separate file. The css file gets included in the head of the `index.html`.
+* Visit https://github.com/MillsProvosty/calorie-tracker-be and click ```New pull request```
