@@ -66,6 +66,14 @@ PUT https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:food_i
 DELETE https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:food_id
 ```
 
+### Tech Stack:
+
+* Framework: Express v10.16.3
+* Language: JavaScript
+* Database: PostgreSQL v11.3
+* ORM: Sequelize v5.5.1
+* Testing: Jest v24.9.0
+
 
 ### Initial Setup:
 
