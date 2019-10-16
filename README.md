@@ -89,8 +89,7 @@ DELETE https://calorie-tracker-be.herokuapp.com/api/v1/meals/:meal_id/foods/:foo
 
 ### Production links:
 
-Project Board:
-![Project Board](https://github.com/MillsProvosty/calorie-tracker/projects/1)
+[Project Board](https://github.com/MillsProvosty/calorie-tracker/projects/1)
 
 Front End :
 Heroku Link : https://calorie-tracker-js.herokuapp.com/
