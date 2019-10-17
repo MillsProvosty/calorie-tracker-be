@@ -8,13 +8,13 @@ describe('api', () => {
     await Food.destroy({where:{}})
   })
 
-  describe('Test PATCH /api/v1/foods/:id path', () => {
+  describe('Test PUT /api/v1/foods/:id path', () => {
 
     test('should update an existing food', async () => {
       let banana = await Food.create({name: 'Banana', calories: 150})
       var service = { "food": {"name": "Cherry", "calories": "25"} };
 
-      return request(app).patch(`/api/v1/foods/${banana.id}`).send(service)
+      return request(app).put(`/api/v1/foods/${banana.id}`).send(service)
       .then(response => {
         expect(response.status).toBe(200)
         expect(Object.keys(response.body).length).toBe(3)
@@ -39,7 +39,7 @@ describe('api', () => {
 
     test('should return 400 for bad id', () => {
       var service = { "food": { "name": "Cherry", "calories": "25"} };
-      return request(app).patch('/api/v1/foods/145').send(service)
+      return request(app).put('/api/v1/foods/145').send(service)
       .then(response => expect(response.status).toBe(400))
     })
 

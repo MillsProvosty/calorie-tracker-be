@@ -27,6 +27,7 @@ describe('api', () => {
     test('banana should be in breakfast', async () => {
       return request(app).get(`/api/v1/meals/${breakfast.id}/foods`).send()
       .then(response => {
+      
         expect(response.status).toBe(200)
         expect(Object.keys(response.body).length).toBe(3)
         expect(Object.keys(response.body)).toContain('id')
